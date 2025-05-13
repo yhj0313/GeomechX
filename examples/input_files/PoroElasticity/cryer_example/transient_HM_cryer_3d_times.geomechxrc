@@ -1,0 +1,156 @@
+-cryer
+### Physics type ###
+-physics_type TransientPoroElasticity
+### Mesh options ###
+-dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/cryer_8th_sphere_2.msh
+# -dm_plex_simplex 0 # hexahedron and quadrilateral if 0, tetrahedron and triangle if 1, in 3D and 2D, respectively
+-dm_plex_dim 3
+-dm_refine 0
+# -petscpartitioner_type parmetis 
+### Approximation order of the space ###
+-displacement_petscspace_degree 2
+-darcyvelocity_petscspace_degree 1
+-pressure_petscspace_degree 1
+-volumetric_strain_petscspace_degree 1
+-scaled_darcyvelocity_petscspace_degree 1
+-scaled_pressure_petscspace_degree 1
+-total_stress_petscspace_degree 1
+-effective_stress_petscspace_degree 1
+-strain_petscspace_degree 1
+-derived_stress_strain_petscspace_degree 1
+# -normalstress_boundary_petscspace_degree 1
+### Preconditioner ###
+# -pc_type lu 
+# -pc_type mg
+# -pc_mg_galerkin 
+# -pc_factor_shift_type positive_definite
+# -pc_factor_shift_amount 2
+# -pc_type fieldsplit 
+# -pc_fieldsplit_type schur 
+# -pc_fieldsplit_schur_fact_type full 
+# -pc_fieldsplit_schur_precondition a11 
+# -fluidflux_petscdualspace_type bdm 
+-snes_error_if_not_converged 
+# -ksp_rtol 1e-10
+# -pc_type fieldsplit 
+-pc_type lu
+# -pc_fieldsplit_type schur 
+# -pc_fieldsplit_schur_factorization_type full 
+# -pc_fieldsplit_schur_precondition full 
+-pc_factor_shift_type nonzero
+
+# -fieldsplit_fluidflux_pc_type lu 
+# -fieldsplit_pressure_ksp_rtol 1e-10 
+# -fieldsplit_pressure_pc_type lu
+# -pc_fieldsplit_detect_saddle_point
+# -fieldsplit_darcyvelocity_pc_type mg
+# -fieldsplit_darcyvelocity_pc_mg_galerkin
+# -fieldsplit_fluidflux_ksp_type preonly
+# -fieldsplit_pressure_ksp_type preonly
+# -fieldsplit_pressure_ksp_rtol 1e-10 
+# -fieldsplit_pressure_pc_type mg
+# -fieldsplit_pressure_pc_mg_galerkin
+-ksp_monitor draw::draw_lg
+-ksp_type gcr
+# -ksp_compute_eigenvalues 
+# -ksp_gmres_restart 1000 
+# -pc_type none
+# -ksp_gmres_restart 1000
+### Time stepping ###
+# -ts_type beuler 
+# -ts_max_steps 10
+# -ts_max_time 1.0e-18
+# -ts_max_time 1.0e6
+# -ts_dt 5.0e-11
+#-ts_time_span 0,20,40,60,80,100
+-ts_time_span 0,1.38891e-1,1.38891,1.38891e1,2.777816e1,4.16672454e1,1.38891e2,1.38891e3
+# -ts_time_span 0,1.0e-4,1.0e-3,1.0e-2,1.0e-1,1.0
+# -ts_time_span 1.0e-20,1.0e-19,1.0e-18
+# -ts_time_span 1.0e-6,1.0e-5,1.0e-4,1.0e-3
+-ts_atol 1e-3
+-ts_rtol 1e-3
+-ts_adapt_type basic
+-ts_adapt_dt_min 1.0e-5
+-ts_monitor
+-ts_adapt_monitor 
+-ts_view
+### Material properties ###
+-granite_permeability 2.0e-16
+-granite_fluid_density 1.0e+3
+-granite_fluid_viscosity 1.0e-3
+-granite_biot_modulus 4.1e14
+# -granite_biot_coefficient 0.65
+-granite_biot_coefficient 1.0
+-granite_inputpara_type bulk_shear
+-granite_bulk_modulus 2.0e10
+-granite_shear_modulus 1.2e10
+# -gravity
+### Data export ###
+-dm_view hdf5:sol_3D_cryer_HM_6_t.h5 
+# -solution_view hdf5:sol_2D_transientdarcy.h5::append 
+# -ts_monitor_solution hdf5:sol_2D_transientdarcy.h5::append 
+-material_view 
+-displacement_view hdf5:sol_3D_cryer_HM_6_t.h5::append
+-scaled_darcyvelocity_view hdf5:sol_3D_cryer_HM_6_t.h5::append
+-scaled_pressure_view hdf5:sol_3D_cryer_HM_6_t.h5::append
+-total_stress_view hdf5:sol_3D_cryer_HM_6_t.h5::append
+-effective_stress_view hdf5:sol_3D_cryer_HM_6_t.h5::append
+-strain_view hdf5:sol_3D_cryer_HM_6_t.h5::append
+### Initial conditions ###
+-inivalue_pressure 0.0 
+### Boundary conditions ###
+# -bctype_darcy_right darcyvelocity
+# -bdvalue_darcy_right 1.0e-6
+# -bctype_darcy_left darcyvelocity
+# -bdvalue_darcy_left 1.0e-4
+# -bctype_darcy_bottom massflux
+# -bdvalue_darcy_bottom 1.0e-6
+# -bctype_darcy_top massflux
+# -bdvalue_darcy_top 1.0e-6
+# -bctype_darcy_top noflow
+# -bdvalue_darcy_top 0.0
+# -bdvalue_darcy_top 0.0
+# -bdvalue_darcy_bottom 0.0
+# -bctype_darcy_top pressure  # R=1
+# -bdvalue_darcy_top 0.0
+# -bctype_darcy_bottom noflow
+# -bctype_darcy_left noflow
+-bctype_darcy_right pressure  # R=1
+-bdvalue_darcy_right 0.0
+-bctype_darcy_left noflow 
+# -bctype_darcy_right pressure
+# -bdvalue_darcy_right 5.0
+-bctype_darcy_bottom noflow 
+# -bctype_darcy_front pressure
+# -bdvalue_darcy_front 1.0
+-bctype_darcy_front noflow
+# -bctype_darcy_back pressure 
+# -bdvalue_darcy_back 9.0
+-bctype_elas_left roller
+# -bctype_elas_left normal_stress # R=1
+# -bdvalue_elas_left -1.0
+# -bctype_elas_right roller
+# -bctype_elas_bottom roller
+-bctype_elas_front roller
+-bctype_elas_bottom roller
+# -bctype_elas_top normal_stress  
+# -bdvalue_elas_top -1.0e1
+-bctype_elas_right normal_stress 
+-bdvalue_elas_right -1.0
+# -bdvalue_elas_top 0.0
+-snes_type ksponly
+-snes_monitor 
+-ksp_monitor_true_residual 
+-snes_converged_reason 
+-ksp_converged_reason
+-ksp_error_if_not_converged
+# -ksp_atol 1e-6
+### Options of derived solutions ###
+-derived_solution_elasicity_type cauchy_3d
+# -derived_solution_elasicity_type planestrain
+# -derived_solution_elasicity_type axisymmetric_2d_planestrain
+# -aux_dm_view hdf5:sol_2D_elas_aux.h5
+# -local_aux_view  hdf5:sol_2D_elas_aux.h5::append
+# -local_aux_view
+### Name of this file ###
+# transient_HM_cryer_3d_times.geomechxrc

@@ -1,0 +1,77 @@
+-physics_type SteadyThermoElasticity
+#-dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/cubic_tetrahedralmesh.msh 
+-dm_plex_dim 3
+-dm_refine 1
+-displacement_petscspace_degree 1 
+-elasticity_derived_petscspace_degree 1  
+-pc_type mg 
+-pc_mg_galerkin 
+#-granite_inputpara_type young_poisson
+-granite_inputpara_type lames
+-granite_lames_first_parameter 1.0e9 
+-granite_shear_modulus 1.0e9  
+#-granite_youngs_modulus 2.5e9
+#-granite_poissons_ratio 0.25
+-granite_lin_ther_expan_c 5.0e-6
+# -granite_lin_ther_expan_c 0.0
+-dm_view hdf5:sol_3D_TM.h5 
+#-displacement_view hdf5:sol_3D_TM.h5::append 
+-solution_view hdf5:sol_3D_TM.h5::append 
+-strain_view hdf5:sol_3D_TM.h5::append 
+-stress_view hdf5:sol_3D_TM.h5::append 
+-material_view 
+-petscpartitioner_type parmetis 
+#-bctype_elas_left normal_stress
+#-bctype_elas_bottom roller 
+-bctype_elas_left roller
+-bctype_elas_bottom roller
+#-bctype_elas_top roller
+-bctype_elas_front roller
+-bctype_elas_back roller
+
+#-bctype_elas_right normal_stress
+#-bdvalue_elas_right 1.2e7
+#-bctype_elas_left normal_stress
+#-bdvalue_elas_left 1.2e7
+#-bctype_elas_front normal_stress
+#-bdvalue_elas_front 8.0e6
+#-bctype_elas_back normal_stress
+#-bdvalue_elas_back 8.0e6
+ -bctype_elas_right roller 
+# -bctype_elas_right displacement
+# -bdvalue_elas_right 1.0e-5
+#-bctype_elas_top normal_stress
+-derived_solution_elasicity_type cauchy_3d
+# -derived_solution_type axisymmetric_2d_planestrain
+# 3d_cubic.petscrc
+#-dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/2D_1by1_triangular.msh 
+-temperature_petscspace_degree 1 
+#-thermal_derived_petscspace_degree 1 
+#-pc_type lu 
+#-temperature_view hdf5:sol_3D_TM.h5::append
+#-derived_solution_type heatflux
+#-bctype_heat_bottom heat_flux 
+#-bdvalue_heat_bottom 1.0
+#-bctype_heat_top heat_flux 
+#-bdvalue_heat_top -1.0
+#-bctype_heat_left temperature
+#-bdvalue_heat_left 0.0 
+#-bctype_heat_right temperature 
+#-bdvalue_heat_right 0.0
+#-bctype_heat_top temperature
+#-bdvalue_heat_top 0.0 
+-bctype_heat_bottom temperature 
+-bdvalue_heat_bottom 10.0
+# -bctype_heat_front temperature 
+# -bdvalue_heat_front 0.0
+#-bctype_heat_back temperature 
+#-bdvalue_heat_back 0.0
+
+#-bctype_heat_front insulation 
+# -bctype_heat_back insulation
+# -bctype_heat_bottom insulation
+# -bctype_heat_top insulation
+# -bctype_heat_left insulation
+# -bctype_heat_right insulation
+
+#3d_cubic_TM.geomechxrc

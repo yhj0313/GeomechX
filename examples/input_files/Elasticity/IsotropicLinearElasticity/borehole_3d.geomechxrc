@@ -1,0 +1,42 @@
+### Physics type ###
+-physics_type IsotropicLinearElasticity
+### Mesh options ###
+-dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/3D_borehole_10elements_inZ.msh
+-dm_plex_dim 3
+-petscpartitioner_type parmetis 
+### Approximation order of the space ###
+-elasticity_petscspace_degree 2
+-elasticity_derived_petscspace_degree 1  
+### Preconditioner ###
+-pc_type mg 
+-pc_mg_galerkin 
+### Material properties ###
+-granite_inputpara_type young_poisson 
+-granite_youngs_modulus 33.0e6 
+-granite_poissons_ratio 0.21 
+### Data export ###
+-dm_view hdf5:sol_3d_borehole.h5 
+-displacement_view hdf5:sol_3d_borehole.h5::append 
+-strain_view hdf5:sol_3d_borehole.h5::append 
+-stress_view hdf5:sol_3d_borehole.h5::append 
+-material_view 
+### Boundary conditions ###
+-bctype_elas_right normal_stress
+-bdvalue_elas_right 1.0e6
+# -bctype_elas_left roller 
+-bctype_elas_left normal_stress
+-bdvalue_elas_left 1.0e6
+-bctype_elas_bottom roller
+# -bctype_elas_bottom normal_stress
+# -bdvalue_elas_bottom 1.0e6
+-bctype_elas_top roller
+# -bctype_elas_top normal_stress
+# -bdvalue_elas_top 1.0e6
+-bctype_elas_front normal_stress
+-bdvalue_elas_front 1.0e6
+-bctype_elas_back normal_stress
+-bdvalue_elas_back 1.0e6
+# -derived_solution_type planestrain
+-derived_solution_type axisymmetric_2d_planestrain
+### Name of this file ###
+#borehole_3d.geomechxrc

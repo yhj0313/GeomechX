@@ -1,0 +1,64 @@
+-physics_type SteadyThermoElasticity
+# -physics_type IsotropicLinearElasticity
+-dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/3D_borehole_10elements_inz.msh 
+-dm_plex_dim 3
+-displacement_petscspace_degree 1 
+-elasticity_derived_petscspace_degree 1  
+-pc_type mg 
+-pc_mg_galerkin 
+-granite_inputpara_type young_poisson 
+-granite_youngs_modulus 33.0e9 
+-granite_poissons_ratio 0.21 
+-granite_lin_ther_expan_c 5.0e-6
+-dm_view hdf5:sol_3d_borehole_TM.h5 
+-solution_view hdf5:sol_3d_borehole_TM.h5::append 
+-displacement_view hdf5:sol_3d_borehole_TM.h5::append 
+-strain_view hdf5:sol_3d_borehole_TM.h5::append 
+-stress_view hdf5:sol_3d_borehole_TM.h5::append 
+-material_view 
+-petscpartitioner_type parmetis 
+
+-bctype_elas_left roller
+#-bdvalue_elas_left 1.0e5  
+#-bctype_elas_bottom roller 
+#-bctype_elas_top roller 
+#-bctype_elas_front roller 
+#-bctype_elas_right normal_stress
+-bctype_elas_right roller
+#-bdvalue_elas_right -1.2e7
+#-bdvalue_elas_right 0.0
+#-bctype_elas_left normal_stress
+#-bdvalue_elas_left -1.2e7
+#-bdvalue_elas_left 0.0
+#-bctype_elas_front normal_stress
+-bctype_elas_front roller
+#-bdvalue_elas_front -8.0e6
+#-bdvalue_elas_front 0.0
+#-bctype_elas_back normal_stress
+-bctype_elas_back roller
+#-bdvalue_elas_back -8.0e6
+#-bdvalue_elas_back 0.0
+
+-bctype_elas_top roller
+-bctype_elas_bottom roller
+#-bdvalue_elas_bottom 1.0e5
+#-bctype_elas_top  normal_stress 
+#-bdvalue_elas_top 0.0
+# -derived_solution_elasicity_type planestrain
+-derived_solution_elasicity_type axisymmetric_2d_planestrain
+#-derived_solution_elasicity_type cauchy_3d
+
+-temperature_petscspace_degree 1 
+#-bctype_heat_left temperature
+#-bdvalue_heat_left 0.0 
+
+-bctype_heat_left temperature
+-bdvalue_heat_left 10.0 
+-bctype_heat_right temperature 
+-bdvalue_heat_right 10.0
+-bctype_heat_top temperature
+-bdvalue_heat_top 10.0 
+-bctype_heat_bottom temperature 
+-bdvalue_heat_bottom 10.0
+
+#borehole_TM_3D.geomechxrc

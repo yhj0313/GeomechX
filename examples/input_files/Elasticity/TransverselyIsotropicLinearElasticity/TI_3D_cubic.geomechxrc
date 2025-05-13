@@ -1,0 +1,45 @@
+-physics_type TransverselyIsotropicLinearElasticity
+# -dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/cubic_tetrahedralmesh.msh 
+# -dm_plex_filename  ${GEOMECHX_DIR}/examples/mesh/TI_rock_comsol/cylinder_mesh.msh
+-dm_plex_dim 3 
+-dm_refine 3
+-elasticity_petscspace_degree 1
+-elasticity_derived_petscspace_degree 1
+# -pc_type mg 
+# -pc_mg_galerkin 
+-granite_inputpara_type fiveparameters 
+# -granite_youngs_modulus 2.5e9
+# -granite_youngs_modulus_ 2.5e9
+# -granite_poissons_ratio 0.25
+# -granite_poissons_ratio_ 0.25
+# -granite_shear_modulus_ 1.0e9
+-granite_youngs_modulus 60.0e9
+-granite_youngs_modulus_ 40.0e9
+-granite_poissons_ratio 0.25
+-granite_poissons_ratio_ 0.20
+-granite_shear_modulus_ 20.0e9
+-granite_theta 90
+-dm_view hdf5:sol_3d_TI_90deg.h5 
+-displacement_view hdf5:sol_3d_TI_90deg.h5::append 
+-strain_view hdf5:sol_3d_TI_90deg.h5::append 
+-stress_view hdf5:sol_3d_TI_90deg.h5::append 
+-material_view 
+# -petscpartitioner_type parmetis 
+# -bc_type_left roller 
+# -bc_type_bottom roller 
+-bctype_elas_front roller
+# -bc_type_right roller
+-bctype_elas_back normal_stress
+-bdvalue_elas_back -1.0e6
+# -bc_type_top roller
+-derived_solution_type cauchy_3d 
+#-derived_solution_type axisymmetric_3d
+-SMat_view
+-TMat_view
+-tTMat_view 
+-IMat_view
+-SMat_rotation_view 
+-CMat_rotation_view
+
+
+#TI_3D_cubic.geomechxrc

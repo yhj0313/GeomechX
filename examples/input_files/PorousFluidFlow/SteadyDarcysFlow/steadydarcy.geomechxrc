@@ -1,0 +1,50 @@
+### Physics type ###
+-physics_type SteadyDarcysFlow
+### Mesh options ###
+# -dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/cubic_tetrahedralmesh.msh 
+-dm_plex_dim 2
+-dm_refine 5
+# -petscpartitioner_type parmetis 
+### Approximation order of the space ###
+-fluidflux_petscspace_degree 1
+-pressure_petscspace_degree 1
+# -normalstress_boundary_petscspace_degree 1
+### Preconditioner ###
+-pc_type mg 
+-pc_mg_galerkin 
+### Material properties ###
+-granite_permeability 1.0e-12
+-granite_fluid_density 1e3
+-granite_fluid_viscosity 1e-3
+# -gravity
+### Data export ###
+-dm_view hdf5:sol_2D_darcy.h5 
+-solution_view hdf5:sol_2D_darcy.h5::append 
+-material_view 
+### Boundary conditions ###
+-bctype_darcy_right massflux
+-bdvalue_darcy_right 1.0e-6
+# -bctype_darcy_right pressure
+# -bdvalue_darcy_right 1.0e+6
+# -bctype_darcy_bottom massflux
+# -bdvalue_darcy_bottom 1.0e-6
+# -bctype_darcy_top massflux
+# -bdvalue_darcy_top 1.0e-6
+# -bctype_darcy_top noflow
+# -bdvalue_darcy_top 0.0
+-bctype_darcy_left pressure
+-bdvalue_darcy_left 0.0
+# -snes_type ksponly
+-snes_monitor 
+-ksp_monitor_true_residual 
+-snes_converged_reason 
+-ksp_converged_reason
+# -ksp_atol 1e-6
+### Options of derived solutions ###
+# -derived_solution_type planestrain
+# -derived_solution_type axisymmetric_2d_planestrain
+# -aux_dm_view hdf5:sol_2D_elas_aux.h5
+# -local_aux_view  hdf5:sol_2D_elas_aux.h5::append
+# -local_aux_view
+### Name of this file ###
+# steadydarcy.geomechxrc

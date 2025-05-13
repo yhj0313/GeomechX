@@ -1,0 +1,43 @@
+-physics_type SteadyThermal
+-dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/2D_three_domaingroups.msh
+-steady_heat_petscspace_degree 2
+-thermal_derived_petscspace_degree 1 
+-pc_type lu 
+-dm_view hdf5:sol_2D_three_domaingroups_steady_T.h5  
+-temperature_view hdf5:sol_2D_three_domaingroups_steady_T.h5::append
+-heatflux_view hdf5:sol_2D_three_domaingroups_steady_T.h5::append
+-derived_solution_type heatflux
+-bctype_heat_left temperature
+-bdvalue_heat_left 20.0
+#-bdvalues_heat_left 1.0,0.0,0.0
+# -bctype_heat_right heat_flux 
+-bctype_heat_right temperature
+#-bdvalues_heat_right 1.0,0.0,0.0
+-bdvalue_heat_right 10.0
+#-bctype_heat_bottom temperature 
+#-bdvalue_heat_bottom 60.0
+-bctype_heat_bottom insulation
+-bctype_heat_top insulation
+#-bc_view
+-material_fields
+-num_materials 3
+-thermal_conductivity_0 4.0
+-fluid_density_0 1000.0
+-heat_capacity_0 4182.0
+-flow_velocity_0 0.0
+-name_0 left_domain
+-description_0 left_domain
+-thermal_conductivity_1 2.0
+-fluid_density_1 1000.0
+-heat_capacity_1 4182.0
+-flow_velocity_1 0.0
+-name_1 middle_domain
+-description_1 middle_domain
+-thermal_conductivity_2 3.0
+-fluid_density_2 1000.0
+-heat_capacity_2 4182.0
+-flow_velocity_2 0.0
+-name_2 right_domain
+-description_2 right_domain
+
+# steady_thermal_threedomains.geomechxrc

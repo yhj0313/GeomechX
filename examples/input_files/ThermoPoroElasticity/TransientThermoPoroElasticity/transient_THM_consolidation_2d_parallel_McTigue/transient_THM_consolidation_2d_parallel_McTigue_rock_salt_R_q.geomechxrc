@@ -1,0 +1,228 @@
+### Physics type ###
+-physics_type TransientThermoPoroElasticity
+### Mesh options ###
+-dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/2D_THM_consolidation_240730.msh
+# -dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/2D_HM_consolidation.msh
+# -dm_plex_simplex 0 # hexahedron and quadrilateral if 0, tetrahedron and triangle if 1, in 3D and 2D, respectively
+-dm_plex_dim 2
+-dm_refine 1
+# -petscpartitioner_type parmetis 
+### Approximation order of the space ###
+-displacement_petscspace_degree 2
+-temperature_petscspace_degree 1
+-darcyvelocity_petscspace_degree 1
+-pressure_petscspace_degree 1
+-volumetric_strain_petscspace_degree 1
+-heat_flux_petscspace_degree 1
+-stress_petscspace_degree 1
+-strain_petscspace_degree 1
+-Material_petscspace_degree 0
+# -scaled_darcyvelocity_petscspace_degree 2
+# -scaled_pressure_petscspace_degree 1
+# -total_stress_petscspace_degree 1
+# -effective_stress_petscspace_degree 1
+# -strain_petscspace_degree 1
+# -derived_stress_strain_petscspace_degree 2
+# -normalstress_boundary_petscspace_degree 1
+### Preconditioner ###
+# -pc_type lu 
+# -pc_type mg
+# -pc_mg_galerkin 
+# -pc_factor_shift_type positive_definite
+# -pc_factor_shift_amount 2
+# -pc_type fieldsplit 
+# -pc_fieldsplit_type schur 
+# -pc_fieldsplit_schur_fact_type full 
+# -pc_fieldsplit_schur_precondition a11 
+# -fluidflux_petscdualspace_type bdm 
+-snes_error_if_not_converged 
+-ksp_rtol 1e-7
+-pc_type fieldsplit 
+# -pc_type mg
+# -pc_type lu
+# -pc_type asm
+# -sub_pc_type lu
+# -sub_pc_factor_shift_type nonzero
+# -pc_type mg
+# -pc_mg_galerkin
+# -mg_levels_pc_type sor
+# -mg_levels_ksp_type richardson
+# -pc_factor_mat_solver_type mumps
+# -pc_factor_mat_solver_type superlu_dist
+# -pc_fieldsplit_type schur 
+# -pc_fieldsplit_schur_factorization_type full 
+# -pc_fieldsplit_schur_precondition full 
+-pc_factor_shift_type nonzero
+-ksp_diagonal_scale
+-ksp_diagonal_scale_fix
+# -fieldsplit_fluidflux_pc_type lu 
+# -fieldsplit_pressure_ksp_rtol 1e-10 
+# -fieldsplit_pressure_pc_type lu
+# -pc_fieldsplit_detect_saddle_point
+# -fieldsplit_darcyvelocity_pc_type mg
+# -fieldsplit_darcyvelocity_pc_mg_galerkin
+# -fieldsplit_fluidflux_ksp_type preonly
+# -fieldsplit_pressure_ksp_type preonly
+# -fieldsplit_pressure_ksp_rtol 1e-10 
+# -fieldsplit_pressure_pc_type mg
+# -fieldsplit_pressure_pc_mg_galerkin
+-pc_fieldsplit_type multiplicative
+-pc_fieldsplit_0_fields 3
+-pc_fieldsplit_1_fields 2
+-pc_fieldsplit_2_fields 1
+-pc_fieldsplit_3_fields 0
+-fieldsplit_pressure_pc_type bjacobi
+-fieldsplit_temperature_pc_type bjacobi
+-fieldsplit_displacement_pc_type lu
+# -fieldsplit_displacement_pc_type bjacobi
+# -fieldsplit_displacement_ksp_type gmres
+-fieldsplit_volumetric_strain_pc_type bjacobi
+# -ksp_monitor draw::draw_lg
+# -ksp_type gcr
+# -ksp_type fgmres
+# -ksp_compute_eigenvalues 
+# -ksp_gmres_restart 1000 
+# -pc_type none
+# -ksp_gmres_restart 1000
+### Time stepping ###
+# -ts_type beuler 
+# -ts_type bdf
+# -ts_bdf_order 2
+# -ts_max_steps 10
+# -ts_max_time 1.0e-18
+-ts_max_time 3.1536e7
+# -ts_dt 5.0e-11
+#-ts_time_span 0,20,40,60,80,100
+# -ts_time_span 0,1.0e-4,1.0e-3
+# -ts_time_span 0,1.0e-4,1.0e-3,1.0e-2,1.0e-1,1.0,1.0e1,1.0e2,1.0e3,3.0e3,6.0e3,1.0e4,3.0e4,1.0e5,1.0e6
+# -ts_time_span 1.0e-20,1.0e-19,1.0e-18
+# -ts_time_span 1.0e-6,1.0e-5,1.0e-4,1.0e-3
+# -ts_atol 1e-3
+-ts_rtol 1e-1
+-ts_adapt_type basic
+-ts_adapt_dt_min 1.0e-5
+-ts_monitor
+-ts_adapt_monitor 
+-ts_view
+# -ts_dt 1.0e-3
+### Material properties ###
+-material_fields
+-num_materials 1
+# -inputpara_type_0 bulk_shear
+# -inputpara_type bulk_shear
+-granite_inputpara_type bulk_shear
+# -granite_inputpara_type young_poisson
+# -bulk_modulus_0 1.0e9
+# -shear_modulus_0 1.0e9
+-bulk_modulus_0 2.07e10
+-shear_modulus_0 1.24e10
+# -youngs_modulus_0 6.0e7
+# -poissons_ratio_0 0.4
+# -thermal_conductivity_0 3.31
+# -thermal_conductivity_0 8.36
+-thermal_conductivity_0 6.6
+-fluid_density_0 1.0e+3
+# -fluid_heat_capacity_0 4182.0
+-fluid_heat_capacity_0 0.0
+# -lin_ther_expan_c_0 3.0e-7
+-lin_ther_expan_c_0 4.0e-5
+#-lin_ther_expan_c_0 0.0
+-density_0 2000.0
+-heat_capacity_0 945.0
+-specific_heat_0 1.0
+# -permeability_0 2.0e-16
+-permeability_0 8.2485e-20
+-fluid_viscosity_0 1.0e-3
+# -gravity_0 9.8
+-biot_modulus_0 1.81e11
+# -biot_modulus_0 1.62e8
+# -biot_modulus_0 2.787e9
+# -biot_coefficient_0 0.65
+# -biot_coefficient_0 1.0
+-biot_coefficient_0 0.119
+-heat_source_0 0.0
+-ref_temp_0 0.0
+-ref_pres_0 0.0
+-porosity_0 0.001
+-vol_flu_ther_expan_c_0 3.0e-4
+-name_0 domain
+-description_0 2D_domain
+# -granite_permeability 2.0e-16
+# -granite_fluid_density 1.0e+3
+# -granite_fluid_viscosity 1.0e-3
+# -granite_biot_modulus 4.1e10
+# -granite_biot_coefficient 0.65
+# -granite_inputpara_type bulk_shear
+# -granite_bulk_modulus 1.3e10
+# -granite_shear_modulus 1.3e10
+# -gravity
+### Data export ###
+-dm_view hdf5:sol_2D_THM_consolidation_1by10_THM_T2_McTigue_rock_salt_R_q_2.h5 
+# -solution_view hdf5:sol_2D_transientdarcy.h5::append 
+# -ts_monitor_solution hdf5:sol_2D_transientdarcy.h5::append 
+-material_view 
+-displacement_view hdf5:sol_2D_THM_consolidation_1by10_THM_T2_McTigue_rock_salt_R_q_2.h5::append
+-temperature_view hdf5:sol_2D_THM_consolidation_1by10_THM_T2_McTigue_rock_salt_R_q_2.h5::append
+# -darcyvelocity_view hdf5:sol_2D_THM_consolidation_1by10_THM_T2_yingP3.h5::append
+-pressure_view hdf5:sol_2D_THM_consolidation_1by10_THM_T2_McTigue_rock_salt_R_q_2.h5::append
+# -heat_flux_view hdf5:sol_2D_THM_consolidation_1by10_THM_T2_yingP3.h5::append
+-stress_view hdf5:sol_2D_THM_consolidation_1by10_THM_T2_McTigue_rock_salt_R_q_2.h5::append
+# -strain_view hdf5:sol_2D_THM_consolidation_1by10_THM_T2_yingP3.h5::append
+# -materials_properties_view hdf5:sol_2D_THM_consolidation_1by10_THM_T2_yingP2.h5::append
+### Initial conditions ###
+-inivalue_pressure 0.0
+-inivalue_temperature 0.0 
+# -inivalue_temperature_equation 10.0-0.03*z
+# -inivalue_pressure_equation -9.8*1000.0*z
+### Boundary conditions ###
+# -bctype_darcy_right darcyvelocity
+# -bdvalue_darcy_right 1.0e-6
+# -bctype_darcy_left darcyvelocity
+# -bdvalue_darcy_left 1.0e-4
+# -bctype_darcy_bottom massflux
+# -bdvalue_darcy_bottom 1.0e-6
+# -bctype_darcy_top massflux
+# -bdvalue_darcy_top 1.0e-6
+# -bctype_darcy_top noflow
+# -bdvalue_darcy_top 0.0
+# -bdvalue_darcy_top 0.0
+# -bdvalue_darcy_bottom 0.0
+-bctype_darcy_top pressure
+-bdvalue_darcy_top 0.0
+-bctype_darcy_bottom noflow
+# -bctype_darcy_bottom pressure
+# -bdvalue_darcy_bottom 0.0
+-bctype_darcy_left noflow
+-bctype_darcy_right noflow 
+-bctype_elas_left roller
+-bctype_elas_right roller
+-bctype_elas_bottom roller
+# -bctype_elas_bottom normal_stress
+# -bdvalue_elas_bottom 0.0
+# -bctype_elas_top normal_stress
+# -bdvalue_elas_top 0.0
+# -bctype_elas_top normal_stress
+# -bdvalue_elas_top -1.0e5
+# -bctype_heat_back temperature
+# -bdvalue_heat_back 0.0
+# -bctype_heat_right temperature 
+# -bdvalue_heat_right 0.0
+-bctype_heat_top temperature 
+-bdvalue_heat_top 10.0
+-snes_type ksponly
+-snes_monitor 
+-snes_linesearch_monitor
+-ksp_monitor_true_residual 
+-snes_converged_reason 
+-ksp_converged_reason
+-ksp_error_if_not_converged
+# -ksp_atol 1e-6
+### Options of derived solutions ###
+-derived_solution_elasicity_type planestrain
+# -derived_solution_type axisymmetric_2d_planestrain
+# -aux_dm_view hdf5:sol_2D_elas_aux.h5
+# -local_aux_view  hdf5:sol_2D_elas_aux.h5::append
+# -local_aux_view
+-options_left
+### Name of this file ###
+# transient_THM_consolidation_2d_parallel_McTigue_rock_salt_R_q.geomechxrc

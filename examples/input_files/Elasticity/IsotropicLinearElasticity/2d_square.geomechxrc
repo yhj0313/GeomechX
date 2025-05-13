@@ -1,0 +1,61 @@
+### Physics type ###
+-physics_type IsotropicLinearElasticity
+### Mesh options ###
+# -dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/cubic_tetrahedralmesh.msh 
+-dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/2D_borehole_quarter.msh
+-dm_plex_dim 2
+-dm_refine 3
+# -petscpartitioner_type parmetis 
+### Approximation order of the space ###
+-elasticity_petscspace_degree 1
+-elasticity_derived_petscspace_degree 1
+-normalstress_boundary_petscspace_degree 1
+### Preconditioner ###
+-pc_type mg 
+-pc_mg_galerkin 
+#-pc_type lu
+#-pc_type cholesky
+#-pc_factor_mat_solver_type mumps
+#-pc_factor_mat_solver_type superlu_dist
+### Material properties ###
+#-granite_inputpara_type young_poisson
+-granite_inputpara_type lames
+-granite_lames_first_parameter 1.0e9 
+-granite_shear_modulus 1.0e9  
+#-granite_youngs_modulus 2.5e9
+#-granite_poissons_ratio 0.25
+### Data export ###
+# -dm_view hdf5:sol_testtt_tetra.h5 
+# -displacement_view hdf5:sol_testtt_tetra.h5::append 
+# -strain_view hdf5:sol_testtt_tetra.h5::append 
+# -stress_view hdf5:sol_testtt_tetra.h5::append 
+-dm_view hdf5:sol_2D_elas.h5 
+-displacement_view hdf5:sol_2D_elas.h5::append 
+-strain_view hdf5:sol_2D_elas.h5::append 
+-stress_view hdf5:sol_2D_elas.h5::append 
+-material_view 
+### Boundary conditions ###
+-bctype_elas_left normal_stress
+-bdvalue_elas_left -1.0e6
+-bctype_elas_bottom roller 
+-bctype_elas_right roller 
+# -bctype_elas_top roller/
+
+#-bctype_elas_back normal_stress
+#-bdvalue_elas_back -1.0e6
+#-bctype_elas_back displacement
+#-bdvalue_elas_back -1.0e6
+#-bctype_elas_back traction
+#-bdvalues_elas_back 0.0,-1.0e6,0.0
+#-bctype_elas_top traction
+#-bdvalues_elas_top 0.0,0.0,1.0e6
+-bctype_elas_top normal_stress
+-bdvalue_elas_top 1.0e6
+### Options of derived solutions ###
+-derived_solution_type planestrain
+# -derived_solution_type axisymmetric_2d_planestrain
+-aux_dm_view hdf5:sol_2D_elas_aux.h5
+-local_aux_view  hdf5:sol_2D_elas_aux.h5::append
+# -local_aux_view
+### Name of this file ###
+# 2d_square.geomechxrc

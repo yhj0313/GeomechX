@@ -1,0 +1,66 @@
+-physics_type TransientThermal
+#-bctype_heat_left heat_flux 
+#-bctype_heat_left temperature
+#-bdvalue_heat_left -100.0
+-bctype_heat_back temperature
+-bdvalue_heat_back 0.0
+-bctype_heat_right temperature 
+-bdvalue_heat_right 0.0
+-bctype_heat_top temperature 
+-bdvalue_heat_top 0.0
+#-dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/2D_singlelayer.msh 
+-dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/3D_Ref_nuclear_waste_disposal.msh
+-dm_plex_dim 3
+-dm_refine 0
+-petscpartitioner_type parmetis 
+#-transient_heat_petscspace_degree 1 
+-Material_petscspace_degree 0
+-temperature_petscspace_degree 1
+#-dmts_check .0001 
+-snes_type ksponly
+-ts_monitor
+-ts_adapt_monitor 
+-ts_view
+#-ts_type beuler 
+#-ts_adapt_type basic
+-ts_type bdf
+-ts_bdf_order 2
+#-ts_max_steps 2
+-ts_dt 315360.0
+-ts_max_time 3153600000000.0 
+-ts_rtol 1e-3
+-snes_error_if_not_converged 
+-pc_type lu
+-dm_view hdf5:sol_3D_transient_T_ref_disposal2.h5 
+-ts_monitor_solution hdf5:sol_3D_transient_T_ref_disposal2.h5::append
+-materials_properties_view hdf5:sol_3D_transient_T_ref_disposal2.h5::append
+-inivalue_temperature 0.0
+-material_fields
+-num_materials 2
+##
+-name_0 left_domain
+-description_0 left_domain
+-thermal_conductivity_0 3.31
+-density_0 2650.0
+-heat_capacity_0 820.0
+-specific_heat_0 1.0
+-heat_source_0 0.0
+###
+-name_1 right_domain
+-description_1 right_domain
+-thermal_conductivity_1 3.31
+-density_1 2650.0
+-heat_capacity_1 820.0
+-specific_heat_1 1.0
+#-heat_source_1 0.5
+-heat_source_pwr_1
+-heat_source_pwr_num_canisters_per_volume_1 2.38095e-4
+##
+-snes_monitor 
+-ksp_monitor_true_residual 
+-snes_converged_reason 
+-ksp_converged_reason
+-ksp_error_if_not_converged
+-snes_error_if_not_converged 
+-options_left
+# transient_T_3d_ref_disposal.geomechxrc

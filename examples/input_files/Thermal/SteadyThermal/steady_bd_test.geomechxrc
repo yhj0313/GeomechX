@@ -1,0 +1,25 @@
+-physics_type SteadyThermal
+-dm_plex_dim 2
+#-dm_refine 1
+-steady_heat_petscspace_degree 1 
+-thermal_derived_petscspace_degree 1 
+# -pc_type lu 
+-dm_view hdf5:sol_2D_steady_heat_bd_test.h5  
+-temperature_view hdf5:sol_2D_steady_heat_bd_test.h5::append
+-heatflux_view hdf5:sol_2D_steady_heat_bd_test.h5::append
+-derived_solution_type heatflux
+-bctype_left heat_flux 
+#-bdvalues_left 1.0,0.0,0.0
+-bdvalue_left 2.5
+# -bctype_heat_right heat_flux 
+# -bdvalues_heat_right 1.0,0.0,0.0
+-bctype_heat_bottom temperature 
+-bdvalue_heat_bottom 80.0
+-bctype_heat_top temperature 
+-bdvalue_heat_top 20.0
+#-bc_view
+-granite_thermal_conductivity 3.5
+-granite_fluid_density 1000.0
+-granite_heat_capacity 4182.0
+-granite_flow_velocity 0.0
+# steady_bd_test.geomechxrc

@@ -1,0 +1,75 @@
+### Physics type ###
+-physics_type TransverselyIsotropicLinearElasticity
+-TI_stripload
+### Mesh options ###
+# -dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/cubic_tetrahedralmesh.msh 
+# -dm_plex_filename  ${GEOMECHX_DIR}/examples/mesh/TI_rock_comsol/cylinder_mesh_fixedpoint.msh
+# -dm_plex_filename  ${GEOMECHX_DIR}/examples/mesh/TI_rock_comsol/cylinder_mesh_fixedpoint_3.msh
+# -dm_plex_filename  ${GEOMECHX_DIR}/examples/mesh/TI_rock_comsol/cylinder_mesh_fixedpoint_lineload.msh
+-dm_plex_filename  ${GEOMECHX_DIR}/examples/mesh/TI_rock_comsol/cylinder_mesh_fixedpoint_lineload.msh
+-dm_plex_dim 3 
+-dm_refine 0
+-additional_z-length 0.001
+### Approximation order of the space ###
+-elasticity_petscspace_degree 2
+-elasticity_derived_petscspace_degree 1
+# -normalstress_boundary_petscspace_degree 2
+### Preconditioner ###
+-pc_type gamg 
+-ksp_type gmres
+# -pc_mg_galerkin 
+# -pc_type svd
+# -pc_type gamg 
+-snes_type ksponly
+### Material properties ###
+-granite_inputpara_type fiveparameters 
+#-granite_youngs_modulus 2.5e9
+#-granite_youngs_modulus_ 2.5e9
+#-granite_poissons_ratio 0.25
+#-granite_poissons_ratio_ 0.25
+#-granite_shear_modulus_ 1.0e9
+-granite_youngs_modulus 60.0e9
+-granite_youngs_modulus_ 40.0e9
+-granite_poissons_ratio 0.25
+-granite_poissons_ratio_ 0.20
+-granite_shear_modulus_ 20.0e9
+-granite_theta 15.0
+### Calculation setup ###
+-near_nullspace
+-snes_monitor 
+-ksp_monitor_true_residual 
+-snes_converged_reason 
+-ksp_converged_reason
+-petscpartitioner_type parmetis 
+# -petscpartitioner_type simple
+# -ksp_rtol 1e-6
+# -ksp_atol 1e-9
+### Data export ###
+-dm_view hdf5:sol_3d_TI_cylinder_lineload.h5 
+-displacement_view hdf5:sol_3d_TI_cylinder_lineload.h5::append 
+-strain_view hdf5:sol_3d_TI_cylinder_lineload.h5::append 
+-stress_view hdf5:sol_3d_TI_cylinder_lineload.h5::append 
+-material_view 
+### Boundary conditions ###
+# -bctype_elas_left roller 
+-bctype_elas_bottom fixed
+-bctype_elas_front roller
+# -bctype_elas_front normal_stress
+# -bdvalue_elas_front -1.0e6
+# -bctype_elas_right roller
+-bctype_elas_back normal_stress
+-bdvalue_elas_back -1.0e6
+# -bc_type_top roller
+#-derived_solution_type cauchy_3d 
+### Options of derived solutions ###
+-derived_solution_type axisymmetric_3d
+### View options ###
+-SMat_view
+-TMat_view
+-tTMat_view 
+-IMat_view
+-SMat_rotation_view 
+-CMat_rotation_view
+-log_view
+### Name of this file ###
+#TI_3D_cylinder.geomechxrc

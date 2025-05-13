@@ -1,0 +1,21 @@
+-physics_type TransientThermal
+-bctype_heat_left heat_flux 
+#-bctype_heat_left temperature
+-bdvalue_heat_left 100.0
+-dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/2D_singlelayer.msh 
+#-transient_heat_petscspace_degree 1 
+-temperature_petscspace_degree 1
+-dmts_check .0001 
+-ts_type beuler 
+-ts_max_steps 100 
+-ts_dt 86400.0 
+-snes_error_if_not_converged 
+-pc_type lu 
+-dm_view hdf5:sol_2D_singlayer_heatconduction.h5 
+-ts_monitor_solution hdf5:sol_2D_singlayer_heatconduction.h5::append
+-inivalue_temperature 30.0
+-thermal_conductivity 3.5
+-density 2700.0
+-heat_capacity 800.0
+-specific_heat 1.0
+# transient.geomechxrc

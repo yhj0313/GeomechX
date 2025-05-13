@@ -1,0 +1,33 @@
+### Physics type ###
+-physics_type IsotropicLinearElasticity
+### Mesh options ###
+-dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/2D_borehole_quarter.msh
+-dm_plex_dim 2 
+-petscpartitioner_type parmetis 
+### Approximation order of the space ###
+-elasticity_petscspace_degree 2
+-elasticity_derived_petscspace_degree 1  
+### Preconditioner ###
+-pc_type mg 
+-pc_mg_galerkin 
+### Material properties ###
+-granite_inputpara_type young_poisson 
+-granite_youngs_modulus 33.0e6 
+-granite_poissons_ratio 0.21 
+### Data export ###
+-dm_view hdf5:sol_2d_borehole_quarter.h5 
+-displacement_view hdf5:sol_2d_borehole_quarter.h5::append 
+-strain_view hdf5:sol_2d_borehole_quarter.h5::append 
+-stress_view hdf5:sol_2d_borehole_quarter.h5::append 
+-material_view 
+### Boundary conditions ###
+-bctype_elas_right normal_stress
+-bdvalue_elas_right 1.0e6
+-bctype_elas_left roller 
+-bctype_elas_bottom roller
+-bctype_elas_top normal_stress
+-bdvalue_elas_top 1.0e6
+# -derived_solution_type planestrain
+-derived_solution_type axisymmetric_2d_planestrain
+### Name of this file ###
+#borehole_2d_quarter.geomechxrc

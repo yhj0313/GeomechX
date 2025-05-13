@@ -1,0 +1,146 @@
+### Physics type ###
+-physics_type TransientThermoPoroElasticity
+### Mesh options ###
+-dm_plex_filename ${GEOMECHX_DIR}/examples/mesh/3D_pointheatsource_cubic_THM.msh
+-dm_plex_dim 3
+-dm_refine 0
+-petscpartitioner_type parmetis 
+### Approximation order of the space ###
+-displacement_petscspace_degree 2
+-temperature_petscspace_degree 2
+-darcyvelocity_petscspace_degree 2
+-pressure_petscspace_degree 2
+-volumetric_strain_petscspace_degree 1
+-heat_flux_petscspace_degree 2
+-stress_petscspace_degree 2
+-strain_petscspace_degree 2
+-Material_petscspace_degree 0
+### Preconditioner ###
+-snes_error_if_not_converged 
+-ksp_rtol 1e-4
+-pc_type fieldsplit 
+-pc_factor_shift_type nonzero
+-ksp_diagonal_scale
+-ksp_diagonal_scale_fix
+-pc_fieldsplit_type multiplicative
+-pc_fieldsplit_0_fields 3
+-pc_fieldsplit_1_fields 2
+-pc_fieldsplit_2_fields 1
+-pc_fieldsplit_3_fields 0
+-fieldsplit_pressure_pc_type bjacobi
+-fieldsplit_temperature_pc_type bjacobi
+-fieldsplit_displacement_pc_type lu
+-fieldsplit_volumetric_strain_pc_type bjacobi
+-ts_max_time 31536000.0  # 1 year
+-ts_rtol 1e-1
+-ts_adapt_type basic
+-ts_adapt_dt_min 1.0e-5
+-ts_monitor
+-ts_adapt_monitor 
+-ts_view
+### Material properties ###
+-material_fields
+-num_materials 2
+-thermal_conductivity_0 3.0
+-fluid_density_0 1.0e+3
+-fluid_heat_capacity_0 0.0
+-density_0 2474.05
+-heat_capacity_0 1000.0
+-specific_heat_0 1.0
+-permeability_0 5.0e-20
+-fluid_viscosity_0 1.0e-3
+-heat_source_0 100.0e6
+-biot_modulus_0 5.0e13
+# -biot_modulus_0 1.0
+# -ref_temp_equation_0 10.0-0.03*z
+-biot_coefficient_0 1.0
+-ref_temp_0 0.0
+-ref_pres_0 0.0
+-porosity_0 0.15
+-vol_flu_ther_expan_c_0 3.0e-4
+-inputpara_type_0 young_poisson
+-youngs_modulus_0 6.0e9
+-poissons_ratio_0 0.25
+-lin_ther_expan_c_0 1.3e-5
+# -lin_ther_expan_c_func_0
+# -lin_ther_expan_c_equation_0 T>0?(0.7704*sqrt(T)+1.3306)*0.000001:1.3306*0.000001
+-name_0 heat_source
+-description_0 heat_source
+-thermal_conductivity_1 3.0
+-fluid_density_1 1.0e+3
+-fluid_heat_capacity_1 0.0
+-density_1 2474.05
+-heat_capacity_1 1000.0
+-specific_heat_1 1.0
+-permeability_1 5.0e-20
+-fluid_viscosity_1 1.0e-3
+-heat_source_1 0.0
+-biot_modulus_1 5.0e13
+# -biot_modulus_1 1.0
+-biot_coefficient_1 1.0
+-ref_temp_1 0.0
+-ref_pres_1 0.0
+-porosity_1 0.15
+-vol_flu_ther_expan_c_1 3.0e-4
+# -heat_source_pwr_1
+# -heat_source_pwr_num_canisters_per_volume_1 3.73685e-5
+# -granite_fluid_density 1000.0
+# -granite_fluid_heat_capacity 
+# -granite_fluid_flow_velocity 
+-inputpara_type_1 young_poisson
+-youngs_modulus_1 6.0e9
+-poissons_ratio_1 0.25
+-lin_ther_expan_c_1 1.3e-5
+# -lin_ther_expan_c_func_1
+# -lin_ther_expan_c_equation_1 T>0?(0.7704*sqrt(T)+1.3306)*0.000001:1.3306*0.000001
+# -ref_temp_equation_1 10.0-0.03*z
+-ref_temp_equation_1 0.0
+-name_1 domain
+-description_1 domain
+-granite_inputpara_type young_poisson
+# -gravity
+### Data export ###
+-dm_view hdf5:sol_3D_THM_Booker_test2_cubic2_spaceorder_M13.h5 
+-material_view 
+-displacement_view hdf5:sol_3D_THM_Booker_test2_cubic2_spaceorder_M13.h5::append
+-temperature_view hdf5:sol_3D_THM_Booker_test2_cubic2_spaceorder_M13.h5::append
+-pressure_view hdf5:sol_3D_THM_Booker_test2_cubic2_spaceorder_M13.h5::append
+# -heat_flux_view hdf5:sol_3D_THM_Booker.h5::append
+-stress_view hdf5:sol_3D_THM_Booker_test2_cubic2_spaceorder_M13.h5::append
+-strain_view hdf5:sol_3D_THM_Booker_test2_cubic2_spaceorder_M13.h5::append
+# -materials_properties_view hdf5:sol_3D_THM_Booker.h5::append
+### Initial conditions ###
+-inivalue_temperature 0.0 
+-inivalue_pressure 0.0
+# -inivalue_temperature_equation 10.0-0.03*z
+### Boundary conditions ###
+-bctype_heat_back temperature
+-bdvalue_heat_back 0.0
+-bctype_heat_right temperature 
+-bdvalue_heat_right 0.0
+-bctype_heat_top temperature 
+-bdvalue_heat_top 0.0
+-bctype_elas_left roller
+-bctype_elas_front roller
+-bctype_elas_bottom roller
+-bctype_darcy_left noflow
+-bctype_darcy_front noflow 
+-bctype_darcy_bottom noflow 
+-bctype_darcy_top pressure
+-bdvalue_darcy_top 0.0
+-bctype_darcy_right pressure
+-bdvalue_darcy_right 0.0
+-bctype_darcy_back pressure
+-bdvalue_darcy_back 0.0
+-snes_type ksponly
+-snes_monitor 
+-snes_linesearch_monitor 
+-ksp_monitor_true_residual 
+-snes_converged_reason 
+-ksp_converged_reason
+-ksp_error_if_not_converged
+### Options of derived solutions ###
+-derived_solution_elasicity_type cauchy_3d
+-options_left
+### Name of this file ###
+# transient_THM_3d_Booker_240903.geomechxrc
