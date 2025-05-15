@@ -34,6 +34,6 @@
 *.vscode/
 Doxyfile
 build/
-doc/manual/
+doc/manual/doxygen
 examples/output_files/
 practice/

@@ -1,5 +1,8 @@
 # GeomechX
 
+⚠️ This project is under active development.
+The core solver is mostly complete, but documentation and user manuals are currently being written.
+
 **GeomechX** is a numerical simulator for coupled Thermo-Hydro-Mechanical (THM) processes in geomechanics, developed with PETSc and written in C++. It is designed for academic and research use, with a flexible and extensible structure for numerical modeling in geological media.
 
 ---
@@ -25,7 +28,7 @@
 ### Requirements
 
 - CMake ≥ 3.1
-- PETSc v3.20 (compiled with C, C++, and optionally Fortran support)
+- PETSc v3.20 (compiled with C, C++)
 - muParser (linked through PETSc)
 - C++ compiler (e.g., GCC or Clang)
 
