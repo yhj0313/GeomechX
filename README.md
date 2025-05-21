@@ -39,7 +39,7 @@ The core solver is mostly complete, but documentation and user manuals are curre
 rm -rf build
 mkdir build
 cd build
-cmake -S ../ -B ./
+cmake -S ../src/ -B ./
 make all
 ```
 
@@ -47,7 +47,7 @@ make all
 
 ## Documentation
 
-- A detailed [User Manual](./docs/User_Manual.md) is available in the `docs/` folder.
+- A detailed [User Manual](./docs/manual/Manual_GeomechX_250519.pdf) is available in the `docs/manual/` folder.
 - For example problems, see `examples/`.
 
 ---
