@@ -36,7 +36,7 @@
 rm -rf build
 mkdir build
 cd build
-cmake -S ../src/ -B ./
+cmake -S ../ -B ./
 make all
 ```
 
